@@ -1,18 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import AddItem from './src/components/AddItem';
+import React, { useState } from 'react';
 
-export default function App() {
+const App = () => {
+  const [taskTitle, setTaskTitle] = useState('')
+  const [taskDescription, setTaskDescription] = useState('')
+  const [tasks, setTasks] = useState([])
+
   return (
-    <AddItem></AddItem>
+    <View style={styles.container}>
+       <AddItem
+         taskTitle={taskTitle}
+         setTaskTitle={setTaskTitle}
+         taskDescription={taskDescription}
+         setTaskDescription={setTaskDescription}
+         tasks={tasks}
+         setTasks={setTasks}
+       />
+    </View>
   );
 }
 
+export default App
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
