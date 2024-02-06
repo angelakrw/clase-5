@@ -11,7 +11,6 @@ const AddItem = ({ taskTitle, setTaskTitle, taskDescription, setTaskDescription,
   setTasks(updatedTasks);
   setTaskTitle('');
   setTaskDescription('');
-  console.log(tasks)
  };
 
 

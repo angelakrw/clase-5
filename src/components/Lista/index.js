@@ -1,14 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
+import ListItem from './ListItem'
 import React from 'react'
 
-const index = () => {
+const Index = ({tasks, screenWidth}) => {
   return (
-    <View>
-      <Text>index</Text>
+    <View style={styles.tasksContainer}>
+      <FlatList
+        pagingEnabled={true}
+        data={tasks}
+        renderItem={({item}) =>{
+          return <ListItem 
+            item={item}
+            screenWidth={screenWidth}
+            />
+        }}
+        keyExtractor={item => item.id} 
+      />
+
     </View>
   )
 }
 
-export default index
+export default Index;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  tasksContainer: {
+    marginTop: 10,
+  }
+})
