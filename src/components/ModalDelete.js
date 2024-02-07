@@ -7,21 +7,23 @@ const ModalDelete = ({modalVisible, setModalVisible, taskSelected, deleteTask}) 
       animationType='slide'
       visible={modalVisible}
     >
-      <View>
-        <Text>¿Está seguro que desea eliminar la tarea?</Text>
-      </View>
-      <View>
-        <Text>{taskSelected.title}</Text>
-      </View>
-      <View>
-        <Button
-          onPress={()=>setModalVisible(false)}
-          title='Volver'
-        />
-        <Button
-          onPress={()=>deleteTask(taskSelected)}
-          title='Confirmar'
-        />
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.prompt}>¿Está seguro que desea eliminar la tarea?</Text>
+        </View>
+        <View>
+          <Text style={styles.title}>{taskSelected.title}</Text>
+        </View>
+        <View style={styles.buttons}>
+          <Button
+            onPress={()=>setModalVisible(false)}
+            title='Volver'
+          />
+          <Button
+            onPress={()=>deleteTask(taskSelected)}
+            title='Confirmar'
+          />
+        </View>
       </View>
 
     </Modal>
@@ -30,4 +32,25 @@ const ModalDelete = ({modalVisible, setModalVisible, taskSelected, deleteTask}) 
 
 export default ModalDelete
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    margin: 20,
+  },
+
+  prompt: {
+    fontSize: 30,
+  },
+
+  title: {
+    fontSize: 35,
+    fontWeight: 'bold',
+  },
+
+  buttons: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+
+  }
+})

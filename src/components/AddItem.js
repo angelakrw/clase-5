@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View, Keyboard, Alert } from 'react-native'
+import { Button, StyleSheet, TextInput, View, Keyboard, Alert } from 'react-native'
 import uuid from 'react-native-uuid'
 
 const AddItem = ({ taskTitle, setTaskTitle, taskDescription, setTaskDescription, tasks, setTasks }) => {
@@ -25,6 +25,7 @@ const AddItem = ({ taskTitle, setTaskTitle, taskDescription, setTaskDescription,
       <TextInput style={[styles.TextInput, styles.title]}
         editable
         placeholder='Título'
+        placeholderTextColor='#CDD5D1'
         value={taskTitle}
         onChangeText={text => setTaskTitle(text)}
       ></TextInput>
@@ -33,13 +34,14 @@ const AddItem = ({ taskTitle, setTaskTitle, taskDescription, setTaskDescription,
         editable
         multiline
         placeholder='Descripción'
+        placeholderTextColor='#CDD5D1'
         value={taskDescription}
         onChangeText={text => setTaskDescription(text)}
       ></TextInput>
 
       <Button style={styles.Button}
         title='Añadir'
-        color={'darkblue'}
+        color={'#17255A'}
         onPress={handleAddTask}
       ></Button>
     </View>
@@ -53,13 +55,14 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 20,
         paddingHorizontal: 20,
-        backgroundColor: 'lightblue'
+        backgroundColor: '#8B95C9'
     },
 
     TextInput: {
         fontWeight: 'bold',
         fontSize: 26,
         paddingVertical: 8,
+        color: '#272F53',
     },
 
     Button: {

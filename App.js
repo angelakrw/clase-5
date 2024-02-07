@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import {View,StyleSheet,Dimensions,Keyboard} from 'react-native'
+import {View, StyleSheet, Dimensions} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddItem from './src/components/AddItem';
 import Index from './src/components/Lista';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalDelete from './src/components/ModalDelete';
 
 
 const App = () => {
+  // Definiendo variables necesarias
   const [taskTitle, setTaskTitle] = useState('')
   const [taskDescription, setTaskDescription] = useState('')
   const [tasks, setTasks] = useState([])
@@ -26,6 +28,40 @@ const App = () => {
     setModalVisible(false)
   }
 
+
+  // Función para guardar las tareas en un archivo JSON
+  const storeTasks = async (tasks) => {
+    try {
+      const jsonValue = JSON.stringify(tasks);
+      await AsyncStorage.setItem('@my_super_store:tasks', jsonValue);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Función para buscar las tareas en el almacenamiento
+  const getTasks = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@my_super_store:tasks');
+      return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      const loadedTasks = await getTasks();
+      setTasks(loadedTasks);
+    };
+    loadTasks();
+  }, []);
+
+  useEffect(() => {
+    storeTasks(tasks);
+  }, [tasks]);
+
   
 
   return (
@@ -42,9 +78,6 @@ const App = () => {
       <Index
         tasks={tasks}
         screenWidth={screenWidth}
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        taskSelected={taskSelected}
         setTaskSelected={setTaskSelected}
         onHandlerModal={onHandlerModal}
       ></Index>
@@ -59,13 +92,13 @@ const App = () => {
 
     </View>
   );
-}
+} 
 
 export default App
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
+    backgroundColor: '#3B477D',
   },
 });
