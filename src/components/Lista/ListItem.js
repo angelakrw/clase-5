@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Modal, Button } from 'react-native'
 import React from 'react'
 
-const ListItem = ({item, screenWidth}) => {
+
+const ListItem = ({item, modalVisible, setModalVisible, taskSelected, setTaskSelected, onHandlerModal}) => {
   return (
     <View style={[styles.item]}>
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemDescription}>{item.description}</Text>
+      <Button
+        onPress={() => onHandlerModal(item)}
+        title='Borrar tarea'
+      />
     </View>
   )
 }

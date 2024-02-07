@@ -1,17 +1,23 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View, Keyboard, Alert } from 'react-native'
+import uuid from 'react-native-uuid'
 
 const AddItem = ({ taskTitle, setTaskTitle, taskDescription, setTaskDescription, tasks, setTasks }) => {
  const addNewTask = (tasks => [
   ...tasks,
-  {id: Math.random().toString(), title:taskTitle, description:taskDescription}
+  {id: uuid.v4(), title:taskTitle, description:taskDescription}
  ]);
  
  const handleAddTask = () => {
-  const updatedTasks = addNewTask(tasks);
-  setTasks(updatedTasks);
-  setTaskTitle('');
-  setTaskDescription('');
- };
+  if (taskTitle.trim() !== '') {
+    const updatedTasks = addNewTask(tasks)
+    setTasks(updatedTasks)
+    setTaskTitle('')
+    setTaskDescription('')
+    Keyboard.dismiss()
+  } else {
+    Alert.alert('error', 'La tarea necesita un título.')
+  }
+ }
 
 
  return (
